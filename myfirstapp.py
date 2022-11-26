@@ -127,7 +127,7 @@ if option=='ASEAN':
     
     st.text(" ") 
     st.text("Change in volume of in CO2/ greenhouse gas emission among ASEAN countries from 2020 to 2021") 
-    df_year_difference_20_21.style.applymap(highlight_max).set_precision(2)
+    st.dataframe(df_year_difference_20_21.style.applymap(highlight_max).set_precision(2))
     
 else:
     # Keep countries only 
