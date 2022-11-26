@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import seaborn as sns 
 
-st.header("ASEAN Co2/ Greenhouse gas emission analysis")
+st.header("Co2/ Greenhouse gas emission analysis")
 
 # Read dataset 
 df_co2 = pd.read_csv('https://raw.githubusercontent.com/owid/co2-data/master/owid-co2-data.csv')
