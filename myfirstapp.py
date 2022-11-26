@@ -3,14 +3,10 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import time
-import missingno as msno
-import sweetviz
 import plotly
 import plotly.express as px
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
-import warnings
-warnings.filterwarnings("ignore")
 
 st.header("Co2/ Greenhouse gas emission analysis")
 
