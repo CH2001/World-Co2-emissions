@@ -71,6 +71,7 @@ if option=='line chart':
     fig.update_layout(title="Change in CO₂ Emission in ASEAN region for the last 10 years: 2012-2021")
 
     fig.show()
+    st.plotly_chart(fig, use_container_width=True)  
 #st.line_chart(chart_data)
 
 elif option=='map':
