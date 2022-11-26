@@ -3,20 +3,60 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import time
+import missingno as msno
+import sweetviz
+import plotly
+import plotly.express as px
+import plotly.graph_objects as go
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings("ignore")
 
-st.header("My first Python Web App")
+st.header("Co2/ Greenhouse gas emission analysis")
 
-readme = st.checkbox("readme first")
+# Read dataset 
+df_co2 = pd.read_csv('https://raw.githubusercontent.com/owid/co2-data/master/owid-co2-data.csv')
 
-if readme:
+# Subset data last 10 years data available: 2011-2021
+df_10yrs = df_co2[df_co2['year'] > 2011]
 
-    st.write("""
-        This is a web app demo using [streamlit](https://streamlit.io/) library. It is hosted on [heroku](https://www.heroku.com/). You may get the codes via [github](https://github.com/richieyuyongpoh/myfirstapp)
-        """)
+# Subset ASEAN countries only 
+asean = ['Thailand', 'Vietnam', 'Cambodia', 'Singapore', 'Laos', 'Indonesia', 'Myanmar', 'Malaysia', 'Brunei', 'Philippines', 'Timor']
+df_asean = df_10yrs[df_10yrs.country.isin(asean)] 
+df_asean.head(5)
 
-    st.write ("For more info, please contact:")
+def drop_missing(df_col): 
+    for col in df_col.columns:
+        cols_to_drop = []
+        
+        # Append column names to cols_to_drop if number of unique values under a column is less than 1
+        if df_col[col].nunique() <= 1: 
+            cols_to_drop.append(col)
 
-    st.write("<a href='https://www.linkedin.com/in/yong-poh-yu/'>Dr. Yong Poh Yu </a>", unsafe_allow_html=True)
+        # Calculate the percentage of missing values 
+        missing_percent = df_col[col].isna().mean() * 100 
+
+        # If the percentage of missing value is more than 30 
+        if missing_percent > 40: 
+            cols_to_drop.append(col)
+        
+    print(f'Cols with high number of missing values (missing value >30) {cols_to_drop}')
+    
+    return(df_col)
+
+df_asean_cleaned = drop_missing(df_asean)
+
+# readme = st.checkbox("readme first")
+
+# if readme:
+
+#     st.write("""
+#         This is a web app demo using [streamlit](https://streamlit.io/) library. It is hosted on [heroku](https://www.heroku.com/). You may get the codes via [github](https://github.com/richieyuyongpoh/myfirstapp)
+#         """)
+
+#     st.write ("For more info, please contact:")
+
+#     st.write("<a href='https://www.linkedin.com/in/yong-poh-yu/'>Dr. Yong Poh Yu </a>", unsafe_allow_html=True)
 
 option = st.sidebar.selectbox(
     'Select a mini project',
@@ -24,11 +64,18 @@ option = st.sidebar.selectbox(
 
 
 if option=='line chart':
-    chart_data = pd.DataFrame(
-    np.random.randn(20, 3),
-    columns=['a', 'b', 'c'])
+    # Line plot for change in co2 emission 
+    fig = px.line(df_asean,
+                  x="year",
+                  y="co2",
+                  hover_name = 'country',
+                  hover_data=['country','population'],
+                  color='country')
 
-    st.line_chart(chart_data)
+    fig.update_layout(title="Change in CO₂ Emission in ASEAN region for the last 10 years: 2012-2021")
+
+    fig.show()
+#st.line_chart(chart_data)
 
 elif option=='map':
     map_data = pd.DataFrame(
