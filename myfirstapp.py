@@ -60,7 +60,7 @@ if option=='ASEAN':
     fig1.update_layout(title="Change in CO₂ Emission in ASEAN region for the last 10 years: 2012-2021")
 
     fig1.show()
-    st.plotly_chart(fig, use_container_width=True)  
+    st.plotly_chart(fig1, use_container_width=True)  
     
     # Line plot for co2 emission in each ASEAN countries
     fig2 = px.area(df_asean,
