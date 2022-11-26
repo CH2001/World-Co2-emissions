@@ -110,9 +110,24 @@ if option=='ASEAN':
     fig5.show()
     st.plotly_chart(fig5, use_container_width=True) 
 
-    st.text(" ")  
+    st.text("Total CO2/ greenhouse gas emission among ASEAN countries for the last 10 years: 2012-2021")  
     df_asean_melt = df_asean.groupby(["country"])[["coal_co2", "oil_co2", "flaring_co2", "cement_co2", "gas_co2"]].sum().reset_index()
     st.dataframe(df_asean_melt.style.background_gradient(cmap=sns.color_palette("viridis", as_cmap=True)).set_precision(2))
+    
+    
+    df_asean_2020 = df_asean[df_asean['year']==2020].groupby(["country"])[["coal_co2", "oil_co2", "flaring_co2", "cement_co2", "gas_co2"]].sum().reset_index().set_index('country')
+    df_asean_2021 = df_asean[df_asean['year']==2021].groupby(["country"])[["coal_co2", "oil_co2", "flaring_co2", "cement_co2", "gas_co2"]].sum().reset_index().set_index('country')
+
+    df_year_difference_20_21 = df_asean_2021.subtract(df_asean_2020)
+    def highlight_max(cell):
+        if type(cell) != str and cell < 0 :
+            return 'background: red; color:black'
+        else:
+            return 'background: green; color: white'
+    
+    st.text(" ") 
+    st.text("Change in volume of in CO2/ greenhouse gas emission among ASEAN countries from 2020 to 2021") 
+    df_year_difference_20_21.style.applymap(highlight_max).set_precision(2)
     
 else:
     # Keep countries only 
