@@ -48,22 +48,57 @@ option = st.sidebar.selectbox(
 
 
 if option=='ASEAN':
+    
+    # Plot the choropleth map figure
+    fig1 = px.choropleth(df_asean,
+                        locations="iso_code", 
+                        locationmode='ISO-3',
+                        color="co2", 
+                        hover_name="country", 
+                        hover_data=['country', 'co2'],
+                        color_continuous_scale="thermal", 
+                        scope="asia")
+
+    fig1.update_layout(title="Total CO2 Emission in each ASEAN countries from 2012-2021", mapbox_zoom=3.5,
+                     mapbox_center= {"lat":5.548694 , "lon": 107.454190})
+    fig1.show()
+    st.plotly_chart(fig1, use_container_width=True)  
+    
+    st.text(" ")    
+    # ASEAN countries emission ranking in the last 10 years 2012-2021
+    df_asean_total_sorted = df_asean_total.sort_values('co2', ascending = False)
+
+    fig2 = px.bar(df_asean_total_sorted,
+                  x = 'country',
+                  y = 'co2',
+                  color='co2',
+                  hover_name = 'country',
+                  hover_data = ['co2'],
+                  color_continuous_scale = 'thermal')
+
+
+    fig2.update_layout(title="CO2 Emission: ASEAN countries rankings")
+
+    fig2.show()
+    st.plotly_chart(fig2, use_container_width=True)      
+
     st.text(" ")
     # Line plot for change in co2 emission 
-    fig1 = px.line(df_asean,
+    fig3 = px.line(df_asean,
                   x="year",
                   y="co2",
                   hover_name = 'country',
                   hover_data=['country','population'],
                   color='country')
 
-    fig1.update_layout(title="Change in CO₂ Emission in ASEAN region for the last 10 years: 2012-2021")
+    fig3.update_layout(title="Change in CO₂ Emission in ASEAN region for the last 10 years: 2012-2021")
+    fig3.show()
+    st.plotly_chart(fig3, use_container_width=True)  
 
-    fig1.show()
-    st.plotly_chart(fig1, use_container_width=True)  
     
+    st.text(" ")
     # Line plot for co2 emission in each ASEAN countries
-    fig2 = px.area(df_asean,
+    fig4 = px.area(df_asean,
                   x="year",
                   y="co2",
                   color="country",
@@ -71,10 +106,18 @@ if option=='ASEAN':
                   facet_col_wrap=5,
                   height=350)
 
-    fig2.update_layout(title="CO₂ Emission in each ASEAN countries for the last 10 years: 2012-2021")
+    fig4.update_layout(title="CO₂ Emission in each ASEAN countries for the last 10 years: 2012-2021")
 
-    fig2.show()
-    st.plotly_chart(fig2, use_container_width=True)  
+    fig4.show()
+    st.plotly_chart(fig4, use_container_width=True)  
+    
+    st.text(" ")    
+    # Total emission in the last 10 years 2012-2021
+    df_asean_total = df_asean.groupby(["country", "iso_code"])["co2"].sum().to_frame().reset_index()
+    df_asean_total
+
+    
+    
 #st.line_chart(chart_data)
 
 elif option=='map':
