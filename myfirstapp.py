@@ -111,9 +111,7 @@ if option=='ASEAN':
     st.plotly_chart(fig5, use_container_width=True) 
     
     df_asean_melt = df_asean.groupby(["country"])[["coal_co2", "oil_co2", "flaring_co2", "cement_co2", "gas_co2"]].sum().reset_index()
-    df_asean_melt.style.background_gradient(cmap=sns.color_palette("viridis", as_cmap=True)).set_precision(2)
-    df_styled = df_asean_melt.style.format(formatter="{:.1f}", na_rep=".").bar(cmap="viridis")
-    st.dataframe(data=df_styled)
+    st.dataframe(data=df_asean_melt)
     
 else:
     # Keep countries only 
