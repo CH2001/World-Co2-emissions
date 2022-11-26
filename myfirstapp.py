@@ -110,24 +110,6 @@ if option=='ASEAN':
     fig5.show()
     st.plotly_chart(fig5, use_container_width=True) 
     
-    st.text(" ")
-    st.text("Sum of co2/ greenhouse gas emission over for the last 10 years: 2012-2021")
-    df_asean_melt = df_asean.groupby(["country"])[["coal_co2", "oil_co2", "flaring_co2", "cement_co2", "gas_co2"]].sum().reset_index()
-    
-    st.text(" ")
-    st.text("Changes in co2/ greenhouse gas emission over the recent year")
-    df_asean_2020 = df_asean[df_asean['year']==2020].groupby(["country"])[["coal_co2", "oil_co2", "flaring_co2", "cement_co2", "gas_co2"]].sum().reset_index().set_index('country')
-    df_asean_2021 = df_asean[df_asean['year']==2021].groupby(["country"])[["coal_co2", "oil_co2", "flaring_co2", "cement_co2", "gas_co2"]].sum().reset_index().set_index('country')
-
-    df_year_difference_20_21 = df_asean_2021.subtract(df_asean_2020)
-    def highlight_max(cell):
-        if type(cell) != str and cell < 0 :
-            return 'background: red; color:black'
-        else:
-            return 'background: green; color: white'
-
-    st.image((df_year_difference_20_21.style.applymap(highlight_max))
-    
 else:
     # Keep countries only 
     continents = ['Asia', 'Central America', 'South America', 'North America', 'Africa', 'Europe', 'International transport', 'South America', 'Oceania', 'European Union (27)', 'European Union (28)']
