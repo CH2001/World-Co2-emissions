@@ -8,6 +8,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import seaborn as sns 
+cmap=sns.color_palette("viridis", as_cmap=True)
 
 st.header("ASEAN Co2/ Greenhouse gas emission analysis")
 
