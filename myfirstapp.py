@@ -127,7 +127,7 @@ if option=='ASEAN':
         else:
             return 'background: green; color: white'
 
-    df_year_difference_20_21.style.applymap(highlight_max).set_precision(2)
+    st.table(df_year_difference_20_21.style.applymap(highlight_max).set_precision(2))
     
 else:
     # Keep countries only 
