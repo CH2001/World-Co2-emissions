@@ -134,3 +134,56 @@ if option=='ASEAN':
     
 else:
     st.text(" ") 
+    # Total emission in the last 10 years 2012-2021
+    df_co2_total = df_co2_clean4.groupby(["country", "iso_code"])["co2"].sum().to_frame().reset_index()
+
+    # Plot the choropleth map figure
+    fig6 = px.choropleth(df_co2_total,
+                        locations="iso_code", 
+                        locationmode='ISO-3',
+                        color="co2", 
+                        hover_name="country", 
+                        hover_data=['country', 'co2'],
+                        color_continuous_scale="thermal")
+
+    fig6.update_layout(title="Total CO2 Emission in the world from 2012-2021")
+
+    fig6.show()
+    st.plotly_chart(fig6, use_container_width=True)
+    
+    df_total_sorted = df_co2_total.sort_values('co2', ascending = False)
+    df_total_sorted_top10 = df_total_sorted.nlargest(15, 'co2')
+    
+    st.text(" ")  
+    # Plot the bar figure
+    fig7 = px.bar(df_total_sorted_top10,
+                  x = 'country',
+                  y = 'co2',
+                  color='co2',
+                  hover_name = 'country',
+                  hover_data = ['co2'],
+                  color_continuous_scale = "thermal",
+                  height=500)
+
+    fig7.update_layout(title="Top 15 countries with the highest CO₂ emission the last 10 years: 2012-2021")
+
+    fig7.show()
+    st.plotly_chart(fig7, use_container_width=True) 
+    
+    
+    df_total_sorted_bottom10 = df_total_sorted.nsmallest(15, 'co2')
+
+    # Plot the bar figure
+    fig8 = px.bar(df_total_sorted_bottom10,
+                  x = 'country',
+                  y = 'co2',
+                  color='co2',
+                  hover_name = 'country',
+                  hover_data = ['co2'],
+                  color_continuous_scale = "thermal",
+                  height=500)
+
+    fig8.update_layout(title="Countries with the lowest CO₂ emission the last 10 years: 2012-2021")
+
+    fig8.show()
+    st.plotly_chart(fig8, use_container_width=True) 
