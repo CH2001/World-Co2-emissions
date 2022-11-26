@@ -43,8 +43,8 @@ def drop_missing(df_col):
 df_asean_cleaned = drop_missing(df_asean)
 
 option = st.sidebar.selectbox(
-    'Select a mini project',
-     ['ASEAN','map','T n C','Long Process'])
+    'Select a plot',
+     ['Worldwide', 'ASEAN','map','T n C','Long Process'])
 
 
 if option=='ASEAN':
@@ -52,7 +52,6 @@ if option=='ASEAN':
     # Plot the choropleth map figure
     # Total emission in the last 10 years 2012-2021
     df_asean_total = df_asean.groupby(["country", "iso_code"])["co2"].sum().to_frame().reset_index()
-    df_asean_total
 
     # Plot the choropleth map figure
     fig1 = px.choropleth(df_asean_total,
