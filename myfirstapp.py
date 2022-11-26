@@ -111,7 +111,7 @@ if option=='ASEAN':
     st.plotly_chart(fig5, use_container_width=True) 
     
     df_asean_melt = df_asean.groupby(["country"])[["coal_co2", "oil_co2", "flaring_co2", "cement_co2", "gas_co2"]].sum().reset_index()
-    st.dataframe(data=df_asean_melt.style.highlight_max(axis=0))
+    st.dataframe(df_asean_melt.style.highlight_max(axis=0))
     
 else:
     # Keep countries only 
