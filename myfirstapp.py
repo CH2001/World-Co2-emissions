@@ -114,11 +114,6 @@ if option=='ASEAN':
     st.text("Sum of co2/ greenhouse gas emission over for the last 10 years: 2012-2021")
     df_asean_melt = df_asean.groupby(["country"])[["coal_co2", "oil_co2", "flaring_co2", "cement_co2", "gas_co2"]].sum().reset_index()
     
-#     df_asean_melt_style = df_asean_melt.style.background_gradient(cmap=sns.color_palette("viridis", as_cmap=True))
-#     st.dataframe(df_asean_melt.style.background_gradient(cmap=sns.color_palette("viridis", as_cmap=True)))
-#     st.write("Code: st.table(data=df_asean_melt_style)")
-#     st.table(data=df_asean_melt_style)
-    
     st.text(" ")
     st.text("Changes in co2/ greenhouse gas emission over the recent year")
     df_asean_2020 = df_asean[df_asean['year']==2020].groupby(["country"])[["coal_co2", "oil_co2", "flaring_co2", "cement_co2", "gas_co2"]].sum().reset_index().set_index('country')
