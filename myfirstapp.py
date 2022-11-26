@@ -60,6 +60,7 @@ option = st.sidebar.selectbox(
 
 
 if option=='line chart':
+    st.text(" ")
     # Line plot for change in co2 emission 
     fig = px.line(df_asean,
                   x="year",
