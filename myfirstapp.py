@@ -50,7 +50,12 @@ option = st.sidebar.selectbox(
 if option=='ASEAN':
     
     # Plot the choropleth map figure
-    fig1 = px.choropleth(df_asean,
+    # Total emission in the last 10 years 2012-2021
+    df_asean_total = df_asean.groupby(["country", "iso_code"])["co2"].sum().to_frame().reset_index()
+    df_asean_total
+
+    # Plot the choropleth map figure
+    fig1 = px.choropleth(df_asean_total,
                         locations="iso_code", 
                         locationmode='ISO-3',
                         color="co2", 
@@ -59,8 +64,8 @@ if option=='ASEAN':
                         color_continuous_scale="thermal", 
                         scope="asia")
 
-    fig1.update_layout(title="Total CO2 Emission in each ASEAN countries from 2012-2021", mapbox_zoom=3.5,
-                     mapbox_center= {"lat":5.548694 , "lon": 107.454190})
+    fig1.update_layout(title="Total CO2 Emission in each ASEAN countries from 2012-2021")
+
     fig1.show()
     st.plotly_chart(fig1, use_container_width=True)  
     
@@ -112,10 +117,21 @@ if option=='ASEAN':
     st.plotly_chart(fig4, use_container_width=True)  
     
     st.text(" ")    
-    # Total emission in the last 10 years 2012-2021
-    df_asean_total = df_asean.groupby(["country", "iso_code"])["co2"].sum().to_frame().reset_index()
-    df_asean_total
+    # ASEAN countries Co2 indicators 
+    df_asean_melt = pd.melt(df_asean.groupby(["country"])[["coal_co2", "oil_co2", "flaring_co2", "cement_co2", "gas_co2"]].sum().reset_index(), id_vars=['country'])
 
+    fig5 = px.line_polar(df_asean_melt, 
+                         r="value", 
+                         theta="variable", 
+                         color="country", 
+                         line_close=True, 
+                         width=1000, 
+                         height=500)
+
+    fig5.update_layout(title="CO2 Emission: ASEAN countries rankings")
+
+    fig5.show()
+    st.plotly_chart(fig5, use_container_width=True) 
     
     
 #st.line_chart(chart_data)
