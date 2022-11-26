@@ -8,7 +8,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 
-st.header("Co2/ Greenhouse gas emission analysis")
+st.header("ASEAN Co2/ Greenhouse gas emission analysis")
 
 # Read dataset 
 df_co2 = pd.read_csv('https://raw.githubusercontent.com/owid/co2-data/master/owid-co2-data.csv')
@@ -59,20 +59,34 @@ option = st.sidebar.selectbox(
      ['line chart','map','T n C','Long Process'])
 
 
-if option=='line chart':
+if option=='ASEAN':
     st.text(" ")
     # Line plot for change in co2 emission 
-    fig = px.line(df_asean,
+    fig1 = px.line(df_asean,
                   x="year",
                   y="co2",
                   hover_name = 'country',
                   hover_data=['country','population'],
                   color='country')
 
-    fig.update_layout(title="Change in CO₂ Emission in ASEAN region for the last 10 years: 2012-2021")
+    fig1.update_layout(title="Change in CO₂ Emission in ASEAN region for the last 10 years: 2012-2021")
 
-    fig.show()
+    fig1.show()
     st.plotly_chart(fig, use_container_width=True)  
+    
+    # Line plot for co2 emission in each ASEAN countries
+    fig2 = px.area(df_asean,
+                  x="year",
+                  y="co2",
+                  color="country",
+                  facet_col="country",
+                  facet_col_wrap=5,
+                  height=350)
+
+    fig2.update_layout(title="CO₂ Emission in each ASEAN countries for the last 10 years: 2012-2021")
+
+    fig2.show()
+    st.plotly_chart(fig2, use_container_width=True)  
 #st.line_chart(chart_data)
 
 elif option=='map':
