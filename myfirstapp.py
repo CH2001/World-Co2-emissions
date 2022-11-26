@@ -16,38 +16,15 @@ df_co2 = pd.read_csv('https://raw.githubusercontent.com/owid/co2-data/master/owi
 # Subset data last 10 years data available: 2011-2021
 df_10yrs = df_co2[df_co2['year'] > 2011]
 
-# Subset ASEAN countries only 
-asean = ['Thailand', 'Vietnam', 'Cambodia', 'Singapore', 'Laos', 'Indonesia', 'Myanmar', 'Malaysia', 'Brunei', 'Philippines', 'Timor']
-df_asean = df_10yrs[df_10yrs.country.isin(asean)] 
-df_asean.head(5)
-
-def drop_missing(df_col): 
-    for col in df_col.columns:
-        cols_to_drop = []
-        
-        # Append column names to cols_to_drop if number of unique values under a column is less than 1
-        if df_col[col].nunique() <= 1: 
-            cols_to_drop.append(col)
-
-        # Calculate the percentage of missing values 
-        missing_percent = df_col[col].isna().mean() * 100 
-
-        # If the percentage of missing value is more than 30 
-        if missing_percent > 40: 
-            cols_to_drop.append(col)
-        
-    print(f'Cols with high number of missing values (missing value >30) {cols_to_drop}')
-    
-    return(df_col)
-
-df_asean_cleaned = drop_missing(df_asean)
-
 option = st.sidebar.selectbox(
     'Select a plot',
      ['Worldwide', 'ASEAN'])
 
 
 if option=='ASEAN':
+    # Subset ASEAN countries only 
+    asean = ['Thailand', 'Vietnam', 'Cambodia', 'Singapore', 'Laos', 'Indonesia', 'Myanmar', 'Malaysia', 'Brunei', 'Philippines', 'Timor']
+    df_asean = df_10yrs[df_10yrs.country.isin(asean)] 
     
     # Plot the choropleth map figure
     # Total emission in the last 10 years 2012-2021
@@ -133,6 +110,14 @@ if option=='ASEAN':
     st.plotly_chart(fig5, use_container_width=True) 
     
 else:
+    # Keep countries only 
+    continents = ['Asia', 'Central America', 'South America', 'North America', 'Africa', 'Europe', 'International transport', 'South America', 'Oceania', 'European Union (27)', 'European Union (28)']
+    df_co2_clean = df_10yrs[df_10yrs["country"].str.contains("(GCP)")==False]
+    df_co2_clean1 = df_co2_clean[df_co2_clean["country"].str.contains("excl.")==False]
+    df_co2_clean2 = df_co2_clean1[df_co2_clean["country"].str.contains("income")==False]
+    df_co2_clean3 = df_co2_clean2[df_co2_clean["country"].str.contains("World")==False]
+    df_co2_clean4 = df_co2_clean3[~df_co2_clean3.country.isin(continents)]
+    
     st.text(" ") 
     # Total emission in the last 10 years 2012-2021
     df_co2_total = df_co2_clean4.groupby(["country", "iso_code"])["co2"].sum().to_frame().reset_index()
