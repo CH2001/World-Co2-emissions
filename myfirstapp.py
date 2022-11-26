@@ -44,7 +44,7 @@ df_asean_cleaned = drop_missing(df_asean)
 
 option = st.sidebar.selectbox(
     'Select a plot',
-     ['Worldwide', 'ASEAN','map','T n C','Long Process'])
+     ['Worldwide', 'ASEAN'])
 
 
 if option=='ASEAN':
