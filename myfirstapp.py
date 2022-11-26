@@ -40,7 +40,7 @@ if option=='ASEAN':
                         color_continuous_scale="thermal", 
                         scope="asia")
 
-    fig1.update_layout(title="Total CO2 Emission in each ASEAN countries from 2012-2021")
+    fig1.update_layout(title="Total CO2/ green house gas emission in each ASEAN countries from 2012-2021")
 
     fig1.show()
     st.plotly_chart(fig1, use_container_width=True)  
@@ -58,7 +58,7 @@ if option=='ASEAN':
                   color_continuous_scale = 'thermal')
 
 
-    fig2.update_layout(title="CO2 Emission: ASEAN countries rankings")
+    fig2.update_layout(title="CO2/ green house gas emission: ASEAN countries rankings")
 
     fig2.show()
     st.plotly_chart(fig2, use_container_width=True)      
@@ -72,7 +72,7 @@ if option=='ASEAN':
                   hover_data=['country','population'],
                   color='country')
 
-    fig3.update_layout(title="Change in CO₂ Emission in ASEAN region for the last 10 years: 2012-2021")
+    fig3.update_layout(title="Change in CO2/ green house gas emission in ASEAN region for the last 10 years: 2012-2021")
     fig3.show()
     st.plotly_chart(fig3, use_container_width=True)  
 
@@ -87,7 +87,7 @@ if option=='ASEAN':
                   facet_col_wrap=5,
                   height=350)
 
-    fig4.update_layout(title="CO₂ Emission in each ASEAN countries for the last 10 years: 2012-2021")
+    fig4.update_layout(title="CO2/ green house gas emission in each ASEAN countries for the last 10 years: 2012-2021")
 
     fig4.show()
     st.plotly_chart(fig4, use_container_width=True)  
@@ -104,7 +104,7 @@ if option=='ASEAN':
                          width=1000, 
                          height=500)
 
-    fig5.update_layout(title="CO2 Emission: ASEAN countries rankings")
+    fig5.update_layout(title="CO2/ green house gas emission: ASEAN countries rankings")
 
     fig5.show()
     st.plotly_chart(fig5, use_container_width=True) 
@@ -131,7 +131,7 @@ else:
                         hover_data=['country', 'co2'],
                         color_continuous_scale="thermal")
 
-    fig6.update_layout(title="Total CO2 Emission in the world from 2012-2021")
+    fig6.update_layout(title="Total CO2/ green house gas emission in the world from 2012-2021")
 
     fig6.show()
     st.plotly_chart(fig6, use_container_width=True)
@@ -150,7 +150,7 @@ else:
                   color_continuous_scale = "thermal",
                   height=500)
 
-    fig7.update_layout(title="Top 15 countries with the highest CO₂ emission the last 10 years: 2012-2021")
+    fig7.update_layout(title="Top 15 countries with the highest CO2/ green house gas emission the last 10 years: 2012-2021")
 
     fig7.show()
     st.plotly_chart(fig7, use_container_width=True) 
@@ -168,7 +168,7 @@ else:
                   color_continuous_scale = "thermal",
                   height=500)
 
-    fig8.update_layout(title="Countries with the lowest CO₂ emission the last 10 years: 2012-2021")
+    fig8.update_layout(title="Countries with the lowest CO2/ green house gas emission the last 10 years: 2012-2021")
 
     fig8.show()
     st.plotly_chart(fig8, use_container_width=True) 
