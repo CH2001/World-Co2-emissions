@@ -132,7 +132,7 @@ if option=='ASEAN':
 elif option=="Prediction": 
     # Streamlit UI 
     st.markdown("**Please enter the details of the flower in the form of 4 floating point values separated by commas**")
-    gdp = st.number_input('GDP: ', value=49980000)
+    gdp = st.number_input('GDP ($): ', value=49980000)
     population = st.number_input('Population: ', value=221)
     if st.button("Predict"):
         results = (3.31E-10 * gdp) + (1.31E-6 * population) - 7.9929
