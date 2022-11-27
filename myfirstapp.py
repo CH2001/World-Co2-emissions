@@ -19,7 +19,7 @@ df_10yrs = df_co2[df_co2['year'] > 2011]
 
 option = st.sidebar.selectbox(
     'Select a plot',
-     ['Worldwide', 'ASEAN'])
+     ['Worldwide', 'ASEAN', 'Prediction'])
 
 
 if option=='ASEAN':
@@ -128,6 +128,15 @@ if option=='ASEAN':
     st.text(" ") 
     st.text("Change in volume of in CO2/ greenhouse gas emission among ASEAN countries from 2020 to 2021") 
     st.dataframe(df_year_difference_20_21.style.applymap(highlight_max).set_precision(2))
+    
+elif option=="Prediction": 
+    # Streamlit UI 
+    st.markdown("**Please enter the details of the flower in the form of 4 floating point values separated by commas**")
+    gdp = st.text_input('GDP: ', '')
+    population = st.text_input('Population: ', '')
+    if st.button("Predict"):
+        results = (3.31E-10 * gdp) + (1.31E-6 * population) - 7.9929
+    st.text(results)
     
 else:
     # Keep countries only 
